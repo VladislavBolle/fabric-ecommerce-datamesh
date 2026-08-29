@@ -1,0 +1,14 @@
+[
+  {
+    "name": "bronze",
+    "path": "/Files",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Files/bronze",
+        "itemId": "64cb1e5a-f2cb-44f3-a37c-1b00705a44da",
+        "workspaceId": "d52e4b7e-5d9f-4105-bd50-998728651762"
+      }
+    }
+  }
+]
