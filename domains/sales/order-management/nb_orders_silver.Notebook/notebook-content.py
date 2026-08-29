@@ -22,15 +22,7 @@
 
 # CELL ********************
 
-# Rohe Dateien aus dem Bronze-Shortcut lesen
-df_orders_raw = spark.read.option("header", "true").csv("Files/bronze/olist_orders_dataset.csv")
-df_items_raw = spark.read.option("header", "true").csv("Files/bronze/olist_order_items_dataset.csv")
-
-df_orders_raw.printSchema()
-display(df_orders_raw.limit(5))
-
-df_order_items_raw.printSchema()
-display(df_items_raw.limit(5))
+from pyspark.sql.functions import col, to_timestamp
 
 # METADATA ********************
 
@@ -41,7 +33,11 @@ display(df_items_raw.limit(5))
 
 # CELL ********************
 
-from pyspark.sql.functions import col, to_timestamp
+# Rohe Dateien aus dem Bronze-Shortcut lesen
+df_orders_raw = spark.read.option("header", "true").csv("Files/bronze/olist_orders_dataset.csv")
+
+df_orders_raw.printSchema()
+display(df_orders_raw.limit(5))
 
 # METADATA ********************
 
@@ -79,6 +75,21 @@ display(df_orders_silver.limit(5))
 
 # CELL ********************
 
+# Rohe Dateien aus dem Bronze-Shortcut lesen
+df_items_raw = spark.read.option("header", "true").csv("Files/bronze/olist_order_items_dataset.csv")
+
+df_order_items_raw.printSchema()
+display(df_items_raw.limit(5))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
 df_items_silver = (
     df_items_raw
     .withColumn("price", col("price").cast("decimal(10,2)"))
@@ -91,6 +102,95 @@ df_items_silver.write.mode("overwrite").format("delta").saveAsTable("order_items
 
 print("Zeilen:", df_items_silver.count())
 display(df_items_silver.limit(5))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# Rohe Dateien aus dem Bronze-Shortcut lesen
+df_customers_raw = spark.read.option("header", "true").csv("Files/bronze/olist_customers_dataset.csv")
+
+df_customers_raw.printSchema()
+display(df_customers_raw.limit(5))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+df_customers_silver = (
+    df_customers_raw
+    .withColumn("customer_zip_code_prefix", col("customer_zip_code_prefix").cast("int"))
+    .dropDuplicates(["customer_id"])
+)
+
+df_customers_silver.write.mode("overwrite").format("delta").saveAsTable("customers_silver")
+
+print("customers:", df_customers_silver.count())
+display(df_customers_silver.limit(5))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# Rohe Dateien aus dem Bronze-Shortcut lesen
+df_products_raw = spark.read.option("header", "true").csv("Files/bronze/olist_products_dataset.csv")
+df_category_translation = spark.read.option("header", "true").csv("Files/bronze/product_category_name_translation.csv")
+
+df_products_raw.printSchema()
+display(df_products_raw.limit(5))
+
+df_category_translation.printSchema()
+display(df_category_translation.limit(5))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+df_products_silver = (
+    df_products_raw
+    # portugiesischen Kategorienamen ins Englische übersetzen
+    .join(df_category_translation, on="product_category_name", how="left")
+    # numerische Attribute typisieren
+    .withColumn("product_weight_g", col("product_weight_g").cast("int"))
+    .withColumn("product_length_cm", col("product_length_cm").cast("int"))
+    .withColumn("product_height_cm", col("product_height_cm").cast("int"))
+    .withColumn("product_width_cm", col("product_width_cm").cast("int"))
+    # nur die relevanten Spalten behalten
+    .select(
+        "product_id",
+        col("product_category_name_english").alias("category"),
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+    )
+    .dropDuplicates(["product_id"])
+)
+
+df_products_silver.write.mode("overwrite").format("delta").saveAsTable("products_silver")
+
+print("products:", df_products_silver.count())
+display(df_products_silver.limit(5))
 
 # METADATA ********************
 
