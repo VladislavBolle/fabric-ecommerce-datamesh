@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[build_gold_orders]"
+        },
+        "linkedService": {
+          "name": "wh_orders_gold",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "183b96ef-1c54-9ffc-42ca-35d15eb501a6",
+              "endpoint": "aav4algnttyu3atejluxcxh74a-isplxzyu24iu7ngbti4yjsva6m.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "sp_build_gold_orders",
+        "dependsOn": []
+      }
+    ]
+  }
+}
