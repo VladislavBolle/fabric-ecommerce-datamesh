@@ -1,0 +1,69 @@
+table dim_product
+	lineageTag: 701b6aff-a5d9-47b9-9aa7-11d08726516d
+	sourceLineageTag: [dbo].[dim_product]
+
+	column product_id
+		dataType: string
+		lineageTag: 129e0139-39f2-4dd3-a3c8-aa234f7c2dec
+		sourceLineageTag: product_id
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: fad30a0a-fb4f-4ce6-b9a1-b9cb4b0a5247
+		sourceLineageTag: category
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_weight_g
+		dataType: int64
+		formatString: 0
+		lineageTag: 3039b6b7-a494-4e62-bde4-316d6ad87a1d
+		sourceLineageTag: product_weight_g
+		summarizeBy: none
+		sourceColumn: product_weight_g
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_length_cm
+		dataType: int64
+		formatString: 0
+		lineageTag: 44ec6bbb-30b0-4ffc-b631-0d26c85dc483
+		sourceLineageTag: product_length_cm
+		summarizeBy: none
+		sourceColumn: product_length_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_height_cm
+		dataType: int64
+		formatString: 0
+		lineageTag: 75ac9ac1-4fee-4fb0-a079-ea70b36c6049
+		sourceLineageTag: product_height_cm
+		summarizeBy: none
+		sourceColumn: product_height_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_width_cm
+		dataType: int64
+		formatString: 0
+		lineageTag: 46acc57f-2f9c-41e2-8df6-1d10ebb2ec0c
+		sourceLineageTag: product_width_cm
+		summarizeBy: none
+		sourceColumn: product_width_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = entity
+		mode: directLake
+		source
+			entityName: dim_product
+			schemaName: dbo
+			expressionSource: 'DirectLake – wh_orders_gold'
+

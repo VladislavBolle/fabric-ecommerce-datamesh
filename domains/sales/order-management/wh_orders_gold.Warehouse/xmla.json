@@ -13,6 +13,101 @@
     "sourceQueryCulture": "en-US",
     "tables": [
       {
+        "name": "dim_customer",
+        "sourceLineageTag": "[dbo].[dim_customer]",
+        "columns": [
+          {
+            "name": "customer_id",
+            "dataType": "string",
+            "sourceColumn": "customer_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "customer_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "customer_unique_id",
+            "dataType": "string",
+            "sourceColumn": "customer_unique_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "customer_unique_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "customer_zip_code_prefix",
+            "dataType": "int64",
+            "sourceColumn": "customer_zip_code_prefix",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "customer_zip_code_prefix",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "customer_city",
+            "dataType": "string",
+            "sourceColumn": "customer_city",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "customer_city",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "customer_state",
+            "dataType": "string",
+            "sourceColumn": "customer_state",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "customer_state",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "dim_customer",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
         "name": "dim_date",
         "sourceLineageTag": "[dbo].[dim_date]",
         "columns": [
@@ -252,6 +347,118 @@
         ]
       },
       {
+        "name": "dim_product",
+        "sourceLineageTag": "[dbo].[dim_product]",
+        "columns": [
+          {
+            "name": "product_id",
+            "dataType": "string",
+            "sourceColumn": "product_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "product_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "category",
+            "dataType": "string",
+            "sourceColumn": "category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "product_weight_g",
+            "dataType": "int64",
+            "sourceColumn": "product_weight_g",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "product_weight_g",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "product_length_cm",
+            "dataType": "int64",
+            "sourceColumn": "product_length_cm",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "product_length_cm",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "product_height_cm",
+            "dataType": "int64",
+            "sourceColumn": "product_height_cm",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "product_height_cm",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "product_width_cm",
+            "dataType": "int64",
+            "sourceColumn": "product_width_cm",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "product_width_cm",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "dim_product",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
         "name": "fact_order_items",
         "sourceLineageTag": "[dbo].[fact_order_items]",
         "columns": [
@@ -362,6 +569,20 @@
             "sourceProviderType": "decimal",
             "sourceLineageTag": "total_item_value",
             "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "customer_id",
+            "dataType": "string",
+            "sourceColumn": "customer_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "customer_id",
+            "summarizeBy": "none",
             "annotations": [
               {
                 "name": "SummarizationSetBy",

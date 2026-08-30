@@ -1,0 +1,57 @@
+table dim_customer
+	lineageTag: dc0575ff-5f97-47c4-805f-f191ffc3d2bb
+	sourceLineageTag: [dbo].[dim_customer]
+
+	column customer_id
+		dataType: string
+		lineageTag: 7d8a2c85-d8e9-4357-a637-7aac0cd86f45
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: cd60b1e3-763b-41d3-9420-c7f573288587
+		sourceLineageTag: customer_unique_id
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_zip_code_prefix
+		dataType: int64
+		formatString: 0
+		lineageTag: eebc9ab4-bb03-4ce9-9bb7-8ebe25b5a7c4
+		sourceLineageTag: customer_zip_code_prefix
+		summarizeBy: none
+		sourceColumn: customer_zip_code_prefix
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		lineageTag: b027c4ee-ead1-43cc-8bb2-ff3153612532
+		sourceLineageTag: customer_city
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_state
+		dataType: string
+		lineageTag: 263bd86d-efa6-41e6-8843-0c9c41335a5c
+		sourceLineageTag: customer_state
+		summarizeBy: none
+		sourceColumn: customer_state
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = entity
+		mode: directLake
+		source
+			entityName: dim_customer
+			schemaName: dbo
+			expressionSource: 'DirectLake – wh_orders_gold'
+

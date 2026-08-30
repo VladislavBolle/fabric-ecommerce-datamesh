@@ -10,9 +10,11 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_QueryOrder = ["DirectLake – wh_orders_gold"]
 
-annotation PBI_ProTooling = ["RemoteModeling","DirectLakeOnOneLakeCreatedInDesktop"]
+annotation PBI_ProTooling = ["RemoteModeling","DirectLakeOnOneLakeCreatedInDesktop","DirectLakeOnOneLakeInWeb","WebModelingEdit"]
 
 ref table dim_date
 ref table dim_order
 ref table fact_order_items
+ref table dim_customer
+ref table dim_product
 

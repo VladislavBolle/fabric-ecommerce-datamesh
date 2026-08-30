@@ -85,6 +85,15 @@ table fact_order_items
 
 		annotation PBI_FormatHint = {"currencyCulture":"de-DE"}
 
+	column customer_id
+		dataType: string
+		lineageTag: a47292a6-c3f7-43e1-aff2-fde66dd3d46a
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition fact_order_items = entity
 		mode: directLake
 		source
