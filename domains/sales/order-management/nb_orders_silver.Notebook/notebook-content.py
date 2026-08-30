@@ -22,7 +22,7 @@
 
 # CELL ********************
 
-from pyspark.sql.functions import col, to_timestamp
+from pyspark.sql.functions import col, to_timestamp, trim, lower
 
 # METADATA ********************
 
@@ -191,6 +191,42 @@ df_products_silver.write.mode("overwrite").format("delta").saveAsTable("products
 
 print("products:", df_products_silver.count())
 display(df_products_silver.limit(5))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# Rohe Dateien aus dem Bronze-Shortcut lesen
+df_sellers_raw = spark.read.option("header", "true").csv("Files/bronze/olist_sellers_dataset.csv")
+
+df_sellers_raw.printSchema()
+display(df_sellers_raw.limit(5))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+df_sellers_silver = (
+    df_sellers_raw
+    .withColumn("seller_zip_code_prefix", col("seller_zip_code_prefix").cast("int"))
+    .withColumn("seller_city", trim(lower(col("seller_city"))))
+    .dropDuplicates(["seller_id"])
+)
+
+df_sellers_silver.write.mode("overwrite").format("delta").saveAsTable("sellers_silver")
+
+print("sellers:", df_sellers_silver.count())
+display(df_sellers_silver.limit(5))
 
 # METADATA ********************
 
