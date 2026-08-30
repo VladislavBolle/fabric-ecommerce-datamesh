@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "MLExperiment",
+    "displayName": "nb_delivery_prediction"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ce89ec96-51b5-9340-4f4f-508595dc96aa"
+  }
+}
