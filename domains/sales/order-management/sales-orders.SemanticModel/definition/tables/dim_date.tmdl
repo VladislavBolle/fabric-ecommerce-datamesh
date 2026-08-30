@@ -1,0 +1,70 @@
+table dim_date
+	lineageTag: 74981522-8137-454a-9e5c-920c9dad2cb2
+	sourceLineageTag: [dbo].[dim_date]
+
+	column date_key
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c486d33a-f892-47b2-93f9-b82ec1d72d2e
+		sourceLineageTag: date_key
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e7d5171-2d5c-47e4-9de1-9e30ab7215fa
+		sourceLineageTag: year
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d0b8298-09a1-45d9-8bdc-fb3de1493584
+		sourceLineageTag: month
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column day
+		dataType: int64
+		formatString: 0
+		lineageTag: d2a51e15-68fe-41b8-ace6-756252b6a937
+		sourceLineageTag: day
+		summarizeBy: sum
+		sourceColumn: day
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekday_name
+		dataType: string
+		lineageTag: 032cab7e-fcee-4df2-9910-98d2b26b5e3d
+		sourceLineageTag: weekday_name
+		summarizeBy: none
+		sourceColumn: weekday_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: ca72c404-180b-4047-aad4-a677ca816e89
+		sourceLineageTag: quarter
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			schemaName: dbo
+			expressionSource: 'DirectLake – wh_orders_gold'
+

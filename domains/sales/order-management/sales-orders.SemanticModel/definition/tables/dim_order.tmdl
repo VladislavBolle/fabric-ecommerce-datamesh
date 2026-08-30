@@ -1,0 +1,78 @@
+table dim_order
+	lineageTag: e6409168-b2fd-4717-b501-518f653ddac6
+	sourceLineageTag: [dbo].[dim_order]
+
+	column order_id
+		dataType: string
+		lineageTag: 40673dbf-e6d9-4c58-b057-87934d2c0eae
+		sourceLineageTag: order_id
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: cdc86555-b3b2-4b2d-b0a9-276792bf5f0b
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: edd4e39f-9afe-425b-9a53-3c6f7f9734e9
+		sourceLineageTag: order_status
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 96a018f1-ee5d-4d07-8a35-af529245b360
+		sourceLineageTag: order_date
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_delivered_customer_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d846c2b8-e1d3-4c1a-9600-cba0b5b9bc00
+		sourceLineageTag: order_delivered_customer_date
+		summarizeBy: none
+		sourceColumn: order_delivered_customer_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_estimated_delivery_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 16ffeec5-94f2-4ec5-99e9-ed28003ea5f5
+		sourceLineageTag: order_estimated_delivery_date
+		summarizeBy: none
+		sourceColumn: order_estimated_delivery_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d19d19a-bc8a-424c-aba9-6137791cb721
+		sourceLineageTag: delivery_days
+		summarizeBy: sum
+		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_order = entity
+		mode: directLake
+		source
+			entityName: dim_order
+			schemaName: dbo
+			expressionSource: 'DirectLake – wh_orders_gold'
+

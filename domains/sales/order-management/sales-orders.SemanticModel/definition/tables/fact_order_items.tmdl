@@ -1,0 +1,94 @@
+table fact_order_items
+	lineageTag: 05c1a443-76d5-448c-8fd6-5689227ac33b
+	sourceLineageTag: [dbo].[fact_order_items]
+
+	column order_id
+		dataType: string
+		lineageTag: fcc418b1-494f-4ce5-90db-21967892bfb5
+		sourceLineageTag: order_id
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_item_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e753fc9-1683-4ffd-aee1-d4e91c00221b
+		sourceLineageTag: order_item_id
+		summarizeBy: sum
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		lineageTag: f7e2ce19-5802-444e-aee0-904152510541
+		sourceLineageTag: product_id
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_id
+		dataType: string
+		lineageTag: 9a4b6d28-d05c-4a21-b10e-1b72fd5599f6
+		sourceLineageTag: seller_id
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2aaac321-fdbe-4160-b264-dbb8a06dd76a
+		sourceLineageTag: order_date
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: decimal
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 03f2040d-1624-4b01-aaf8-51f55395bc18
+		sourceLineageTag: price
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"de-DE"}
+
+	column freight_value
+		dataType: decimal
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: d14fc4ea-00e4-49be-ab74-22ad7bf3ec88
+		sourceLineageTag: freight_value
+		summarizeBy: sum
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"de-DE"}
+
+	column total_item_value
+		dataType: decimal
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: fe0326d5-6ecf-4136-a15a-a594411eb635
+		sourceLineageTag: total_item_value
+		summarizeBy: sum
+		sourceColumn: total_item_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"de-DE"}
+
+	partition fact_order_items = entity
+		mode: directLake
+		source
+			entityName: fact_order_items
+			schemaName: dbo
+			expressionSource: 'DirectLake – wh_orders_gold'
+
